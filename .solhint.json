@@ -1,0 +1,61 @@
+{
+  "extends": "solhint:all",
+
+  "rules": {
+    "compiler-version":["error", "^0.8.30"],
+    "reentrancy"            : "error",
+    "avoid-tx-origin"       : "error",
+    "avoid-suicide"         : "error",
+    "avoid-low-level-calls" : "error",
+    "check-send-result"     : "error",
+
+    "not-rely-on-time"         : "warn",
+    "no-unused-vars"           : "warn",
+    "payable-fallback"         : "warn",
+    "named-parameters-mapping" : "warn",
+
+    "gas-struct-packing"       : "warn",
+    "gas-custom-errors"        : "warn",
+    "gas-calldata-parameters"  : "warn",
+    "gas-multitoken1155"       : "warn",
+    "gas-length-in-loops"      : "warn",
+
+    "explicit-types"           : "warn",
+    "reason-string"            :["warn", { "maxLength": 32 }],
+    "gas-small-strings"        : "warn",
+    "gas-indexed-events"       : "warn",
+
+    "gas-strict-inequalities"  : "warn",
+    "gas-increment-by-one"     : "warn",
+    "gas-named-return-values"  : "off",
+
+    "avoid-throw"              : "warn",
+
+    "state-visibility"                : "warn",
+    "no-inline-assembly"              : "off",
+    "no-complex-fallback"             : "off",
+    "no-empty-blocks"                 : "warn",
+    "func-visibility"                 : "off",
+
+    "one-contract-per-file"           : "off",
+    "ordering"                        : "off",
+    "imports-on-top"                  : "off",
+    "imports-order"                   : "off",
+    "import-path-check"               : "off",
+
+    "func-name-mixedcase"             : "off",
+    "contract-name-capwords"          : "off",
+    "immutable-vars-naming"           : "off",
+    "private-vars-leading-underscore" : "off",
+    "var-name-mixedcase"              : "off",
+    "const-name-snakecase"            : "off",
+    "function-max-lines"              : "off",
+    "max-line-length"                 : "off",
+
+    "use-natspec"                     : "off",
+    "comprehensive-interface"         : "off",
+
+    "foundry-test-functions"          : "off",
+    "quotes"                          : "off"
+  }
+}
