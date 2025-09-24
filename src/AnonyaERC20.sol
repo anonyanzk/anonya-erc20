@@ -436,12 +436,9 @@ contract AnonyaERC20 is
             ERC20InvalidSpender({ spender: spender })
         );
         address owner = _msgSender();
-
         _temporaryApprove(owner, spender, value);
         ret = Address.functionCall(spender, data);
-
         bytes4 selector = data.length >= 4 ? bytes4(data) : bytes4(0);
-
         emit CalledWithTemporaryApprove({
             owner:    owner,
             spender:  spender,
@@ -527,7 +524,6 @@ contract AnonyaERC20 is
             value != 0, 
             ERC3156ZeroAmount({ amount: value })
         );
-
         uint256 maxLoan; unchecked { 
                 maxLoan = _cap - _totalSupply; 
         }
@@ -535,11 +531,8 @@ contract AnonyaERC20 is
             value <= maxLoan,
             ERC3156ExceededMaxLoan({ maxLoan: maxLoan })
         );
-
         uint256 fee = _flashFee(token, value);
-
         _mint(address(receiver), value);
-
         require(
             receiver.onFlashLoan(
                 _msgSender(),
@@ -552,13 +545,10 @@ contract AnonyaERC20 is
         );
         address feeTo = _feeReceiver;
         uint256 repay = value + fee;
-
         _spendWithTemporary(address(receiver), self, repay);
         _update            (address(receiver), self, repay);
-
         _burn  (self, value);
         _update(self, feeTo, fee);
-
         emit FlashFeePaid({
             payer:    address(receiver),
             receiver: feeTo,
@@ -576,7 +566,6 @@ contract AnonyaERC20 is
         returns (bool)
     {
         address from = _msgSender();
-
         if (amount == 0) {
             emit Transfer({
                 from:  from,
@@ -603,7 +592,6 @@ contract AnonyaERC20 is
             from != address(0),
             ERC20InvalidSender({ sender: from })
         );
-
         if (amount == 0) {
         emit Transfer({
             from:  from,
@@ -612,7 +600,6 @@ contract AnonyaERC20 is
         });
             return true;
         }
-
         if (spender != from) {
             _spendWithTemporary(from, spender, amount);
         }
@@ -634,10 +621,8 @@ contract AnonyaERC20 is
             spender != address(0),
             ERC20InvalidSpender({ spender: spender })
         );
-
         mapping(address => uint256) storage a = _allowances[owner];
         uint256 current = a[spender];
-
         if (added == 0) {
             emit Approval({
                 owner:   owner,
@@ -646,7 +631,6 @@ contract AnonyaERC20 is
             });
             return true;
         }
-
         unchecked {
             uint256 updated = M.saturatingAdd(current, added);
             a[spender]      = updated;
@@ -670,14 +654,12 @@ contract AnonyaERC20 is
         returns (bool)
     {
         address owner = _msgSender();
-
         require(
             spender != address(0),
             ERC20InvalidSpender({ spender: spender })
         );
         mapping(address => uint256) storage a = _allowances[owner];
         uint256 current = a[spender];
-
         if (subtracted == 0) {
             emit Approval({
                 owner:   owner,
@@ -767,12 +749,10 @@ contract AnonyaERC20 is
                 needed:  amount
             })
         );
-
         unchecked {
             _balances[from] = fromBal - amount;
             _totalSupply    -= amount;
         }
-
         emit Transfer({
             from:  from,
             to:    address(0),
@@ -800,12 +780,10 @@ contract AnonyaERC20 is
                 balance: fromBal,
                 needed:  amount
         }));
-
         unchecked {
             _balances[from] = fromBal - amount;
             _balances[to]  += amount;
         }
-
         emit Transfer({
             from:  from,
             to:    to,
@@ -838,7 +816,6 @@ contract AnonyaERC20 is
         if (prev != value) {
             _allowances[owner][spender] = value;
         }
-
         emit Approval({
             owner:   owner,
             spender: spender,
@@ -863,7 +840,6 @@ contract AnonyaERC20 is
             ERC20InvalidSpender({ spender: spender })
         );
         _temporaryAllowanceSlot(owner, spender).tstore(value);
-        
         emit TemporaryApproval({
             owner:   owner,
             spender: spender,
@@ -893,7 +869,6 @@ contract AnonyaERC20 is
     {
         TransientSlot.Uint256Slot slot = _temporaryAllowanceSlot(owner, spender);
         uint256 t = slot.tload();
-
         if (t == type(uint256).max) {
             return;
         }
@@ -907,9 +882,7 @@ contract AnonyaERC20 is
             amount -= t;
         }
         slot.tstore(0);
-
         uint256 allowed = _allowances[owner][spender];
-
         if (allowed != type(uint256).max) {
             require(
                 allowed >= amount,
@@ -921,7 +894,6 @@ contract AnonyaERC20 is
             );
             unchecked {
                 uint256 updated = allowed - amount;
-
                 _allowances[owner][spender] = updated;
                 emit Approval({
                     owner:   owner,
