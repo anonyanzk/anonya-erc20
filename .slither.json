@@ -1,0 +1,19 @@
+{
+  "detectors_to_run": "all",
+
+  "detectors_to_exclude": ["assembly", "shadowing-state"],
+  "exclude_dependencies" : true,
+  "include_paths"        : "src/",
+  "filter_paths"         : "lib/|mocks/|test/|script/|openzeppelin/|docs/",
+
+  "exclude_informational": true,
+  "exclude_optimization" : true,
+  "exclude_low"          : false,
+  "exclude_medium"       : false,
+  "exclude_high"         : false,
+
+  "show_ignored_findings": true,
+
+  "compile_force_framework": "foundry",
+  "fail_on": "none"
+}
