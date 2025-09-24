@@ -1,0 +1,67 @@
+[profile.default]
+# Path
+  src    = 'src'
+  script = 'script'
+  out    = 'out'
+  libs   = ['lib']
+
+# Compiler
+  solc           = '0.8.30'
+  evm_version    = 'prague'
+  via_ir         = true
+  optimizer      = true
+  optimizer_runs = 4294967295
+  revert_strings = 'default'
+
+# Build config
+  auto_detect_remappings = true
+  cache                  = true
+  cache_path             = 'cache'
+  force                  = false
+
+# Metadata
+  bytecode_hash       = 'ipfs'
+  cbor_metadata       = true
+  use_literal_content = true
+
+# Build UX
+  broadcast     = 'broadcast'
+  verbosity     = 4
+  show_progress = true
+  sparse_mode   = true
+
+# Extradata
+  ast                = true
+  names              = true
+  sizes              = true
+  build_info         = true
+  extra_output       = ["metadata","storageLayout","transientStorageLayout","ir","irOptimized"]
+  extra_output_files = ["metadata","storageLayout","transientStorageLayout","ir","irOptimized"]
+
+
+ignored_error_codes = [
+  2394, # — transient storage
+  4591, # — too-many-warnings
+  1878  # — license
+]
+
+# Optimization
+[profile.default.optimizer_details]
+  yul               = true
+  inliner           = true
+  deduplicate       = true
+  jumpdestRemover   = true
+  constantOptimizer = true
+  orderLiterals     = true
+  peephole          = true
+  cse               = true
+
+[profile.default.optimizer_details.yulDetails]
+  stackAllocation = true
+  optimizerSteps  = 'default'
+
+# Forge lint
+[profile.default.lint]
+  severity      = ["med", "high"]
+  exclude_lints = ["unsafe-typecast"]
+  ignore        = ["script/**/*", "lib/**/*"]
