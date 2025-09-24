@@ -339,7 +339,6 @@ contract AnonyaERC20 is
             to != address(0),
             ERC20InvalidReceiver({ receiver: to })
         );
-
         if (amount == 0) {
             emit Transfer({
                 from:  from,
@@ -348,7 +347,6 @@ contract AnonyaERC20 is
             });
             return true;
         }
-
         if (to == from) {
             uint256 fromBal = _balances[from];
             require(
@@ -359,7 +357,6 @@ contract AnonyaERC20 is
                     needed:  amount
                 })
             );
-
             emit Transfer({
                 from:  from,
                 to:    to,
@@ -389,7 +386,6 @@ contract AnonyaERC20 is
             to != address(0),
             ERC20InvalidReceiver({ receiver: to })
         );
-
         if (amount == 0) {
             emit Transfer({
                 from:  from,
@@ -398,7 +394,6 @@ contract AnonyaERC20 is
             });
             return true;
         }
-        
         if (spender != from) {
             _spendWithTemporary(from, spender, amount);
         }
